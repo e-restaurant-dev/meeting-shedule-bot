@@ -1,28 +1,37 @@
-const { Client, Intents } = require('discord.js')
+const fs = require('fs')
+const path = require('path')
+const { Client, Intents, Collection } = require('discord.js')
 const { token } = require('./config.json')
 
-
 const client = new Client({intents: [Intents.FLAGS.GUILDS]})
+
+client.commands = new Collection()
+
+const commandsPath = path.join(__dirname, 'commands')
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
+
+for(const file of commandFiles) {
+    const filePath = path.join(commandsPath, file)
+    const command = require(filePath)
+    client.commands.set(command.data.name, command)
+}
 
 client.once('ready', () => {
     console.log('Ready!')
 })
 
 client.on('interactionCreate', async interaction => {
-    try {
-        if(!interaction.isCommand()) return
+    if(!interaction.isCommand()) return
 
-        const { commandName } = interaction
-        
-        if(commandName ===  'ping') {
-            await interaction.reply('Pong')
-        } else if (commandName === 'sayhi') {
-            await interaction.reply(`Hello ${interaction.member}`) 
-        } 
-    } catch(e) {
-        throw new Error(e)
+    const command = client.commands.get(interaction.commandName)
+
+    if(!command) return
+
+    try {
+        await command.execute(interaction)
+    } catch (error) {
+        await interaction.reply({content: "There an error", ephemeral: true})
     }
 })
-
 
 client.login(token)
