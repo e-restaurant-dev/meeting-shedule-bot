@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const {Collection} = require('discord.js')
+const { Collection } = require('discord.js')
 
 const commands = new Collection()
 const commandsPath = './commands'
