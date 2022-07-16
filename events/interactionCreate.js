@@ -3,14 +3,13 @@ const fs = require('fs')
 const { Collection } = require('discord.js')
 
 const commands = new Collection()
-const commandsPath = './commands'
-const commandFiles = fs.readdirSync(commandsPath)
+const commandsDir = '../commands'
+const commandFiles = fs.readdirSync('./commands')
                         .filter(file => file.endsWith('.js'))
 
 for(const file of commandFiles) {
-    const filePath = path.join(commandsPath, file)
-    let filePathR = '../' + filePath
-    const command = require(filePathR)
+    const filePath = path.join(commandsDir, file)
+    const command = require(filePath)
     commands.set(command.data.name, command)
 }
 
