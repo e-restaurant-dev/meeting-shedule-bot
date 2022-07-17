@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js",
-    "lint:fix": "eslint *.js --fix"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "deploy-commands": "node deploy-commands.js",
+    "lint": "eslint *.js commands/** events/** utils/**",
+    "lint:fix": "eslint *.js commands/** events/** utils/** --fix"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,7 @@
     "discord.js": "^13.8.1"
   },
   "devDependencies": {
-    "eslint": "^8.19.0"
+    "eslint": "^8.19.0",
+    "nodemon": "^2.0.19"
   }
 }
