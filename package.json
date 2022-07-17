@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint utils events commands",
-    "lint:fix": "eslint utils events commands --fix"
+    "lint": "eslint *.js",
+    "lint:fix": "eslint *.js --fix"
   },
   "keywords": [],
   "author": "",
