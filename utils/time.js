@@ -1,12 +1,16 @@
 const currentDate = new Date();
+const currentTimeZone = currentDate.getHours() - currentDate.getUTCHours();
+// Date with applied current time zone to UTC time
+const UTCDate = new Date(currentDate.toUTCString() + (currentTimeZone >= 0 ? `+${currentTimeZone}` : currentTimeZone));
+
 const acceptedTimeZones = {
 	pl: {
 		zone: 'GMT+2',
-		offset: Math.abs(currentDate.getTime() - new Date(`${currentDate.toUTCString}+2`)),
+		offset: Math.abs(UTCDate.getTime() - new Date(`${currentDate.toUTCString()}+2`).getTime()),
 	},
 	vl: {
 		zone: 'GMT+10',
-		offset: Math.abs(currentDate.getTime() - new Date(`${currentDate.toUTCString}+10`)),
+		offset: Math.abs(UTCDate.getTime() - new Date(`${currentDate.toUTCString()}+10`).getTime()),
 	},
 };
 

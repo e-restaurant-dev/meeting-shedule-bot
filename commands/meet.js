@@ -7,7 +7,7 @@ module.exports = {
 		.setName('meet')
 		.setDescription('Назначить новую встречу с выбранными участниками и временем')
 		.addStringOption(option =>
-			option.setName('user')
+			option.setName('participants')
 				.setDescription('Укажите участников встречи')
 				.setRequired(true),
 		)
@@ -22,7 +22,7 @@ module.exports = {
 				.setRequired(true),
 		),
 
-	async execute(interaction) {
+	execute(interaction) {
 		const { data } = interaction.options;
 
 		const names = data[0].value.split(' ');
@@ -45,18 +45,18 @@ module.exports = {
 		}
 		else {
 			const meetingTimeEntries = getScheduleTime(dateOfMeeting);
-			const message = await interaction.reply({ content: `Встреча назначена на:${
+			interaction.reply(`Встреча назначена на:${
 				meetingTimeEntries.reduce((date, info) => (
 					`${date}\n${info.location.toUpperCase()}(${info.zone}): ${getFormatDateString(info.date)}`
 				), '')
-			}\nСписок участников: ${memberCollection}`, fetchReply: true });
+			}\nСписок участников: ${memberCollection}`);
 
 			setTimeout(() => {
 				const embed = new MessageEmbed()
 					.setColor('GOLD')
 					.setTitle('Встреча начинается')
 					.setDescription(`Участники: ${memberCollection}`);
-				message.reply({ embeds: [embed] });
+				interaction.followUp({ embeds: [embed] });
 			}, msUntilMeeting);
 		}
 	},
