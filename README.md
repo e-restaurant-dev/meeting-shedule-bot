@@ -26,7 +26,7 @@ npm run deploy-commands
 
 4. Run bot
 
-```
+```bash
 npm run start # or "npm run dev" to run in development (hot reload) mode
 ```
 
