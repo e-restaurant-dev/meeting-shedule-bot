@@ -18,7 +18,7 @@ module.exports = {
 		)
 		.addStringOption(option =>
 			option.setName('zone')
-				.setDescription('Укажите часовой пояс pl для GMT+1 или vl для GMT+10')
+				.setDescription('Укажите часовой пояс: "pl" для GMT+2 или "vl" для GMT+10')
 				.setRequired(true),
 		),
 
