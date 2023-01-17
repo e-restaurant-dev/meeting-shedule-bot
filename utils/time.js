@@ -12,6 +12,10 @@ const acceptedTimeZones = {
 		zone: 'GMT+10',
 		offset: Math.abs(UTCDate.getTime() - new Date(`${currentDate.toUTCString()}+10`).getTime()),
 	},
+	gb: {
+		zone: 'GMT+0',
+		offset: Math.abs(UTCDate.getTime() - new Date(`${currentDate.toUTCString()}+0`).getTime()),
+	},
 };
 
 /**
